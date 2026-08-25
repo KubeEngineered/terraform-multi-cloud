@@ -1,4 +1,4 @@
-# 1. Terraform Settings & Required Providers
+	# 1. Terraform Settings & Required Providers
 terraform {
   required_version = ">= 1.5.0"
   required_providers {
@@ -8,6 +8,7 @@ terraform {
     }
   }
 }
+
 
 # 2. Variable Definitions
 # variable "gcp_project_id" {
@@ -28,18 +29,19 @@ terraform {
   # description = "Target GCP Zone"
 #}
 
+
 # 3. Provider Configuration
  provider "google" {
-   project = "ms-solutionist"
-   region  = "us-central1"
-  zone    = "us-central1-a"
+   project  = var.gcp_project_id
+   region   = var.gcp_region
 }
+
 
 # 4. Compute Engine VM Instance Declaration
 resource "google_compute_instance" "vm_instance" {
-  name         = "devops-app-vm"
+  name         = "demo-vm-instance"
   machine_type = "e2-micro" # Free-tier eligible / cheap testing size
-  zone         = "us-central1-a"
+  zone         = "${var.gcp_region}-a"
 
   # Boot Disk Configuration
   boot_disk {

@@ -7,9 +7,10 @@ variable "gcp_project_id" {
 
 
 
-variable "region" {
+variable "gcp_region" {
   type          = string
-  description   = "The region for resource deployment in GCP"
+  default       = "asia-south1"
+  description   = "Primary GCP region"
 }
 
 
@@ -29,12 +30,13 @@ variable "environment" {
 
 
 
-variable "resource_tag" {
+variable "resource_tags" {
 
   type          = map(string)
-  description   = "Resource tags for cost centre allocation"
+  description   = "Governance labels for GCP resources"
   default       = {
-    bu = "apple"
+    bu           = "apple"
+    environment  = "dev"
+    managed_by   = "terraform"
  }
 }
-
