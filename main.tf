@@ -10,35 +10,36 @@ terraform {
 }
 
 # 2. Variable Definitions
-variable "gcp_project_id" {
-  type        = string
-  default     = "ms-solutionist"
-  description = "Your GCP Project ID"
-}
+# variable "gcp_project_id" {
+  # type        = string
+  # default     = "ms-solutionist"
+  # description = "Your GCP Project ID"
+#}
 
-variable "gcp_region" {
-  type        = string
-  default     = "asia-south1"
-  description = "Target GCP Region"
-}
+# variable "gcp_region" {
+  # type        = string
+  # default     = "asia-south1"
+  # description = "Target GCP Region"
+# }
 
-variable "gcp_zone" {
-  type        = string
-  default     = "asia-south1-a"
-  description = "Target GCP Zone"
-}
+# variable "gcp_zone" {
+  # type        = string
+  # default     = "asia-south1-a"
+  # description = "Target GCP Zone"
+#}
 
 # 3. Provider Configuration
-provider "google" {
-  project = var.gcp_project_id
-  region  = var.gcp_region
-  zone    = var.gcp_zone
+ provider "google" {
+   project = "ms-solutionist"
+   region  = "us-central1"
+  zone    = "us-central1-a"
 }
 
 # 4. Compute Engine VM Instance Declaration
 resource "google_compute_instance" "vm_instance" {
-  name         = "demo-vm-instance"
+  name         = "devops-app-vm"
   machine_type = "e2-micro" # Free-tier eligible / cheap testing size
+  zone         = "us-central1-a"
 
   # Boot Disk Configuration
   boot_disk {
