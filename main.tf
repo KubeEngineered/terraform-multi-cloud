@@ -65,8 +65,11 @@ resource "google_compute_instance" "vm_instance" {
   }
 }
 
-# 5. Output values
-output "instance_public_ip" {
-  value       = google_compute_instance.vm_instance.network_interface[0].access_config[0].nat_ip
-  description = "The public IP address assigned to the VM instance"
+
+# 3. Google cloud storage bucket Declaration
+resource "google_storage_bucket" "demo_bucket" {
+name                      = "devops-demo-bucket-${var.environment}"
+location                  = "US"
+force_destroy             = true
+public_access_prevention  = "enforced"
 }
