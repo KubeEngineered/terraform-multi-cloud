@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.0"
+  required_version = ">= 1.5.0"
   required_providers {
     google = {
       source  = "hashicorp/google"
@@ -9,19 +9,18 @@ terraform {
 }
 
 provider "google" {
-  project = "ms-solutionist"
-  region  = "us-central1"
+  project = var.project_id
+  region  = var.region
 }
 
-module "dev_vpc" {
-  source = "../../modules/gcp_network"
-
-  network_name = "dev-vpc"
-  subnet_name  = "dev-subnet-01"
-  subnet_cidr  = "10.10.0.0/24"
-  region       = "us-central1"
+module "dev_network" {
+  source      = "../../modules/gcp_network"
+  project_id  = var.project_id
+  region      = var.region
+  env         = "dev"
+  subnet_cidr = "10.0.10.0/24"
 }
 
-output "dev_network_id" {
-  value = module.dev_vpc.network_id
+output "dev_vm_public_ip" {
+  value = module.dev_network.instance_public_ip
 }
